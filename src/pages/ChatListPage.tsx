@@ -3,6 +3,7 @@ import ChatCategoryTabs from "../components/chat/ChatCategoryTabs";
 import ChatRoomItem from "../components/chat/ChatRoomItem";
 import SearchIcon from "../assets/Search.svg";
 import SettingIcon from "../assets/Setting_line.svg"
+import StatusBar from "../components/common/StatusBar";
 
 type ChatCategory = "전체" | "일자리" | "라이드 쉐어";
 
@@ -44,6 +45,7 @@ export default function ChatListPage() {
 
     return (
         <main className="mx-auto min-h-screen w-[390px] bg-white px-[24px] pt-[48px]">
+            <StatusBar />
             <div className="mb-[24px] flex items-center justify-between">
                 <h1 className="text-[26px] font-bold text-black">채팅</h1>
 
