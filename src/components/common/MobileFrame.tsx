@@ -4,7 +4,7 @@ type MobileFrameProps = {
 
 export default function MobileFrame({ children }: MobileFrameProps) {
   return (
-    <main className="mx-auto min-h-screen w-[390px] bg-white px-[24px] pt-[48px]">
+    <main className="relative mx-auto h-[844px] w-[390px] bg-white px-[24px] pt-[48px]">
       {children}
     </main>
   );
