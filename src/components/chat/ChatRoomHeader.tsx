@@ -26,7 +26,7 @@ export default function ChatRoomHeader({
           <img src={BackIcon} alt="뒤로가기" className="h-[43px] w-[43px]" />
         </button>
 
-        <h1 className="pt-[30px] text-center text-[30px] font-normal text-black">
+        <h1 className="pt-[17px] text-center text-[30px] font-normal text-black">
           {room.title}
         </h1>
 
