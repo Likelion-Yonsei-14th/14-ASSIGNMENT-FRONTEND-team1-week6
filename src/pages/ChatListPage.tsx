@@ -4,13 +4,15 @@ import ChatRoomItem from "../components/chat/ChatRoomItem";
 import SearchIcon from "../assets/Search.svg";
 import SettingIcon from "../assets/Setting_line.svg"
 import StatusBar from "../components/common/StatusBar";
-import { chatRooms } from "../data/chatRooms";
+import { useChatStore } from "../stores/chatStore";
 import { useNavigate } from "react-router-dom";
 import MobileFrame from "../components/common/MobileFrame";
 
 type ChatCategory = "전체" | "일자리" | "라이드 쉐어";
 
 export default function ChatListPage() {
+    const chatRooms = useChatStore((state) => state.chatRooms);
+
     const navigate = useNavigate();
     const [selectedCategory, setSelectedCategory] =
         useState<ChatCategory>("전체");

@@ -10,24 +10,30 @@ import ExitIcon from "../../assets/Sign_out_squre.svg";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onLeaveRoom: () => void;
 };
 
 function ActionItem({
   icon,
   label,
+  onClick,
 }: {
   icon: string;
   label: string;
+  onClick?: () => void;
 }) {
   return (
-    <button className="flex h-[24px] items-center gap-[20px] text-left">
+    <button
+    type="button"
+    onClick={onClick} 
+    className="flex h-[24px] items-center gap-[20px] text-left">
       <img src={icon} alt="" className="h-[24px] w-[24px]" />
       <span className="text-[14px] font-medium text-black">{label}</span>
     </button>
   );
 }
 
-export default function ChatActionSheet({ isOpen, onClose }: Props) {
+export default function ChatActionSheet({ isOpen, onClose, onLeaveRoom }: Props) {
   if (!isOpen) return null;
 
   return (
@@ -45,7 +51,7 @@ export default function ChatActionSheet({ isOpen, onClose }: Props) {
         <section className="mt-[15px] flex flex-col gap-[24px] rounded-[20px] bg-[#E8E8E8] px-[26px] py-[25px]">
           <ActionItem icon={SearchIcon} label="검색하기" />
           <ActionItem icon={AlarmOffIcon} label="알람끄기" />
-          <ActionItem icon={ExitIcon} label="방 나가기" />
+          <ActionItem icon={ExitIcon} label="방 나가기" onClick={onLeaveRoom} />
         </section>
 
         <button

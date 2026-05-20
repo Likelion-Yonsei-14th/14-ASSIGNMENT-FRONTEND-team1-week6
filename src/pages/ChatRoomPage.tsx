@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { chatRooms } from "../data/chatRooms";
+import { useChatStore } from "../stores/chatStore";
+import { useNavigate } from "react-router-dom";
 import ChatRoomHeader from "../components/chat/ChatRoomHeader";
 import MessageBubble from "../components/chat/MessageBubble";
 import ChatInputBar from "../components/chat/ChatInputBar";
@@ -8,6 +9,7 @@ import AdminMessageCard from "../components/chat/AdminMessageCard";
 import ChatActionSheet from "../components/chat/ChatActionSheet";
 import MobileFrame from "../components/common/MobileFrame";
 import StatusBar from "../components/common/StatusBar";
+import LeaveRoom from "../components/chat/LeaveRoom";
 
 type Message = {
     id: number;
@@ -17,6 +19,12 @@ type Message = {
 };
 
 export default function ChatRoomPage() {
+const chatRooms = useChatStore((state) => state.chatRooms);
+const removeChatRoom = useChatStore((state) => state.removeChatRoom);
+
+const navigate = useNavigate();
+const [isLeaveOpen, setIsLeaveOpen] = useState(false);
+
     const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
 
     const { chatId } = useParams();
@@ -89,6 +97,18 @@ export default function ChatRoomPage() {
             <ChatActionSheet
                 isOpen={isActionSheetOpen}
                 onClose={() => setIsActionSheetOpen(false)}
+                onLeaveRoom={() => {
+                    setIsActionSheetOpen(false);
+                    setIsLeaveOpen(true);
+                }}
+            />
+            <LeaveRoom 
+            isOpen={isLeaveOpen}
+            onCancel={() => setIsLeaveOpen(false)}
+            onConfirm={() => {
+                removeChatRoom(room.id);
+                navigate("/");
+            }}
             />
         </MobileFrame>
     );
