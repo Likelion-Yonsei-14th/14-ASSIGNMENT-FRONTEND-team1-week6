@@ -186,7 +186,7 @@ export default function HomePage() {
   )
 }
 
-function RideCard({ post, rank, onClick }: { post: RidePost; rank: number; onClick: () => void }) {
+function RideCard({ post: _post, rank, onClick }: { post: RidePost; rank: number; onClick: () => void }) {
   if (rank > 1) {
     return (
       <button
@@ -219,7 +219,7 @@ function RideCard({ post, rank, onClick }: { post: RidePost; rank: number; onCli
   )
 }
 
-function JobCard({ post, rank, onClick }: { post: JobPost; rank: number; onClick: () => void }) {
+function JobCard({ post: _post, rank, onClick }: { post: JobPost; rank: number; onClick: () => void }) {
   if (rank > 1) {
     return (
       <button

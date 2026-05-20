@@ -54,7 +54,7 @@ export default function JobDetailPage() {
 
           {/* StatusBar overlaid on image */}
           <div className="absolute top-0 left-0 right-0">
-            <StatusBar transparent />
+            <StatusBar />
           </div>
 
           {/* Back button */}
