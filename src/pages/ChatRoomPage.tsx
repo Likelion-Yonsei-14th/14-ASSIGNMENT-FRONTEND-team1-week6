@@ -7,6 +7,7 @@ import ChatInputBar from "../components/chat/ChatInputBar";
 import AdminMessageCard from "../components/chat/AdminMessageCard";
 import ChatActionSheet from "../components/chat/ChatActionSheet";
 import MobileFrame from "../components/common/MobileFrame";
+import StatusBar from "../components/common/StatusBar";
 
 type Message = {
     id: number;
@@ -54,6 +55,7 @@ export default function ChatRoomPage() {
 
     return (
         <MobileFrame>
+            <StatusBar />
             <ChatRoomHeader
                 room={room}
                 onOpenActionSheet={() => setIsActionSheetOpen(true)}
