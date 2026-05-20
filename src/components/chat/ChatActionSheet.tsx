@@ -32,7 +32,7 @@ export default function ChatActionSheet({ isOpen, onClose }: Props) {
 
   return (
     <div className="absolute inset-0 z-50 flex items-end bg-black/40">
-      <div className="w-full rounded-t-[20px] bg-[#D9D9D9] px-[20px] pb-[15px] pt-[15px]">
+      <div className="absolute bottom-0 left-0 w-full rounded-t-[20px] bg-[#D9D9D9] px-[20px] pb-[15px] pt-[15px]">
         <img src={HandleIcon} alt="" className="mx-auto mb-[20px] w-[50px]" />
 
         <section className="flex h-[219px] flex-col gap-[24px] rounded-[20px] bg-[#E8E8E8] px-[20px] pb-[10px] pt-[20px]">
