@@ -6,6 +6,7 @@ import SettingIcon from "../assets/Setting_line.svg"
 import StatusBar from "../components/common/StatusBar";
 import { chatRooms } from "../data/chatRooms";
 import { useNavigate } from "react-router-dom";
+import MobileFrame from "../components/common/MobileFrame";
 
 type ChatCategory = "전체" | "일자리" | "라이드 쉐어";
 
@@ -20,7 +21,7 @@ export default function ChatListPage() {
             : chatRooms.filter((room) => room.category === selectedCategory);
 
     return (
-        <main className="mx-auto min-h-screen w-[390px] bg-white px-[24px] pt-[48px]">
+        <MobileFrame>
             <StatusBar />
             <div className="mb-[24px] flex items-center justify-between">
                 <h1 className="text-[26px] font-bold text-black">채팅</h1>
@@ -52,6 +53,6 @@ export default function ChatListPage() {
                     />
                 ))}
             </section>
-        </main>
+        </MobileFrame>
     );
 }

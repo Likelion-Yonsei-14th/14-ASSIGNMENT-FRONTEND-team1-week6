@@ -6,6 +6,7 @@ import MessageBubble from "../components/chat/MessageBubble";
 import ChatInputBar from "../components/chat/ChatInputBar";
 import AdminMessageCard from "../components/chat/AdminMessageCard";
 import ChatActionSheet from "../components/chat/ChatActionSheet";
+import MobileFrame from "../components/common/MobileFrame";
 
 type Message = {
     id: number;
@@ -52,7 +53,7 @@ export default function ChatRoomPage() {
     }
 
     return (
-        <main className="relative mx-auto min-h-screen w-[390px] bg-white">
+        <MobileFrame>
             <ChatRoomHeader
                 room={room}
                 onOpenActionSheet={() => setIsActionSheetOpen(true)}
@@ -87,6 +88,6 @@ export default function ChatRoomPage() {
                 isOpen={isActionSheetOpen}
                 onClose={() => setIsActionSheetOpen(false)}
             />
-        </main>
+        </MobileFrame>
     );
 }
