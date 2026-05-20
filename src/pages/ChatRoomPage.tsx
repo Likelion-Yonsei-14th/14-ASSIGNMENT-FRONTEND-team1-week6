@@ -107,7 +107,7 @@ const [isLeaveOpen, setIsLeaveOpen] = useState(false);
             onCancel={() => setIsLeaveOpen(false)}
             onConfirm={() => {
                 removeChatRoom(room.id);
-                navigate("/");
+                navigate("/chat");
             }}
             />
         </MobileFrame>

@@ -7,6 +7,7 @@ import StatusBar from "../components/common/StatusBar";
 import { useChatStore } from "../stores/chatStore";
 import { useNavigate } from "react-router-dom";
 import MobileFrame from "../components/common/MobileFrame";
+import BottomNav from "../components/BottomNav";
 
 type ChatCategory = "전체" | "일자리" | "라이드 쉐어";
 
@@ -44,7 +45,7 @@ export default function ChatListPage() {
                 onSelect={setSelectedCategory}
             />
 
-            <section className="mt-[32px] flex flex-col gap-[22px]">
+            <section className="mt-[32px] flex flex-col gap-[22px] pb-[90px]">
                 {filteredRooms.map((room) => (
                     <ChatRoomItem
                         key={room.id}
@@ -55,6 +56,7 @@ export default function ChatListPage() {
                     />
                 ))}
             </section>
+            <BottomNav />
         </MobileFrame>
     );
 }
