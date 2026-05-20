@@ -123,19 +123,19 @@ export default function RideDetailPage() {
       </div>
 
       {/* Bottom CTA — absolute inside MobileFrame (relative) */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-4 flex items-center gap-3">
-        <button
-          onClick={() => setLiked((v) => !v)}
-          className="w-12 h-12 flex items-center justify-center rounded-2xl border border-gray-200 flex-shrink-0"
-        >
-          <span className="text-xl">{liked ? '❤️' : '🤍'}</span>
+      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 flex items-center gap-3">
+        <button onClick={() => setLiked((v) => !v)} className="flex-shrink-0 p-1">
+          <svg viewBox="0 0 24 24" fill={liked ? '#52C98A' : 'none'} stroke={liked ? '#52C98A' : '#9ca3af'} strokeWidth="1.8" className="w-7 h-7">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg>
         </button>
-        <button className="flex-1 btn-outline">전화문의</button>
+        <button className="flex-1 py-3.5 rounded-2xl bg-gray-100 text-gray-600 font-semibold text-sm">
+          전화문의
+        </button>
         <button
           disabled={isFull}
-          className={`flex-[1.5] py-3.5 rounded-2xl font-bold text-sm ${
-            isFull ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary text-white'
-          }`}
+          className="flex-[1.5] py-3.5 rounded-2xl font-bold text-sm text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ backgroundColor: isFull ? '#9ca3af' : '#35FCA9' }}
         >
           {isFull ? '마감됨' : '지원하기'}
         </button>

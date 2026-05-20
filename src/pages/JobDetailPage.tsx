@@ -21,26 +21,26 @@ export default function JobDetailPage() {
 
   return (
     <div className="h-full flex flex-col bg-white overflow-hidden">
+      {/* StatusBar h-[44px] */}
       <StatusBar />
 
-      <div className="flex-1 overflow-y-auto pb-[76px]">
+      {/* Scrollable body */}
+      <div className="flex-1 overflow-y-auto pb-[72px]">
 
-        {/* ── Dual-photo hero ── */}
+        {/* ── Dual hero (no separate nav bar) ── */}
         <div className="relative w-full h-44 flex gap-0.5">
-          {/* Left photo */}
           <div
             className="flex-1 flex items-center justify-center"
             style={{ backgroundColor: post.thumbColor }}
           >
             <span className="text-6xl">{post.thumbEmoji}</span>
           </div>
-          {/* Right photo */}
           <div className="flex-1 flex flex-col items-center justify-center bg-gray-800 gap-1">
-            <span className="text-white text-xs font-light tracking-widest opacity-60">TEAM</span>
-            <span className="text-white text-lg font-bold tracking-wider">{post.author.name.toUpperCase()}</span>
-            <div className="mt-1 flex gap-1">
+            <span className="text-white text-[10px] font-light tracking-widest opacity-50">TEAM</span>
+            <span className="text-white text-base font-bold tracking-wider">{post.author.name.toUpperCase()}</span>
+            <div className="flex gap-1 mt-0.5">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-white opacity-40" />
+                <div key={i} className="w-1.5 h-1.5 rounded-full bg-white opacity-30" />
               ))}
             </div>
           </div>
@@ -48,9 +48,11 @@ export default function JobDetailPage() {
           {/* Back button overlay */}
           <button
             onClick={() => navigate(-1)}
-            className="absolute top-3 left-3 w-8 h-8 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center"
+            className="absolute top-3 left-3 w-8 h-8 bg-black/25 backdrop-blur-sm rounded-full flex items-center justify-center"
           >
-            <span className="text-white text-sm">←</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="w-4 h-4">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
           </button>
         </div>
 
@@ -61,13 +63,13 @@ export default function JobDetailPage() {
             {post.title}
           </h1>
 
-          {/* ── Meta row ── */}
+          {/* ── Meta ── */}
           <p className="text-xs text-gray-400 mb-5">
             {post.author.neighborhood}
-            <span className="mx-1.5">·</span>
+            <span className="mx-1.5 text-gray-300">/</span>
             {post.createdAt}
-            <span className="mx-1.5">·</span>
-            지원자 {post.applicants.length}명
+            <span className="mx-1.5 text-gray-300">/</span>
+            후기 {post.author.reviewCount}개
           </p>
 
           {/* ── Info rows ── */}
@@ -75,15 +77,15 @@ export default function JobDetailPage() {
             {[
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[18px] h-[18px]">
                     <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
                   </svg>
                 ),
-                text: `월급 ${post.pay.toLocaleString()}만원`,
+                text: `월급 ${(post.pay / 10000).toLocaleString()}만원`,
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[18px] h-[18px]">
                     <rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
                   </svg>
                 ),
@@ -91,7 +93,7 @@ export default function JobDetailPage() {
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[18px] h-[18px]">
                     <circle cx="12" cy="12" r="10" /><path d="M12 7v5l3 3" />
                   </svg>
                 ),
@@ -99,15 +101,16 @@ export default function JobDetailPage() {
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" /><circle cx="7" cy="7" r="1" fill="currentColor" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-[18px] h-[18px]">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
+                    <circle cx="7" cy="7" r="1" fill="currentColor" stroke="none" />
                   </svg>
                 ),
                 text: post.tags.filter((t) => t !== '정기' && t !== '비정기').join('/'),
               },
             ].map((row, i) => (
               <div key={i} className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 flex-shrink-0">
+                <div className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 flex-shrink-0">
                   {row.icon}
                 </div>
                 <span className="text-sm text-gray-800">{row.text}</span>
@@ -120,40 +123,19 @@ export default function JobDetailPage() {
             {post.description}
           </p>
 
-          {/* ── Applicants ── */}
-          {post.applicants.length > 0 && (
-            <div className="mb-5 pb-5 border-b border-gray-100">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-base">👥</span>
-                <p className="text-sm font-bold text-gray-900">
-                  지원자 <span className="text-primary">{post.applicants.length}명</span>
-                </p>
-              </div>
-              {/* Overlapping avatars */}
-              <div className="flex items-center">
-                {post.applicants.map((a, i) => (
-                  <div
-                    key={a.id}
-                    className="w-10 h-10 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-lg flex-shrink-0"
-                    style={{ marginLeft: i === 0 ? 0 : -10, zIndex: post.applicants.length - i }}
-                  >
-                    {a.avatar}
-                  </div>
-                ))}
-                <span className="ml-3 text-xs text-gray-500">
-                  {post.applicants.map((a) => a.name).join(', ')} 외
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* ── Map ── */}
+          {/* ── Applicants + Map ── */}
           <div className="mb-2">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-base">📍</span>
-              <p className="text-sm font-bold text-gray-900">위치</p>
+            <div className="flex items-center gap-1.5 mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="1.8" className="w-5 h-5">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+              </svg>
+              <p className="text-sm font-bold text-gray-900">
+                지원자 <span className="text-primary">{post.applicants.length}명</span>
+              </p>
             </div>
-            <RealisticMap location={post.location} />
+            <DetailMap applicantCount={post.applicants.length} />
           </div>
 
         </div>
@@ -161,16 +143,15 @@ export default function JobDetailPage() {
 
       {/* ── Bottom CTA ── */}
       <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 flex items-center gap-3">
-        <button
-          onClick={() => setLiked((v) => !v)}
-          className="w-12 h-12 flex items-center justify-center flex-shrink-0"
-        >
-          <span className="text-2xl">{liked ? '❤️' : '🤍'}</span>
+        <button onClick={() => setLiked((v) => !v)} className="flex-shrink-0 p-1">
+          <svg viewBox="0 0 24 24" fill={liked ? '#35FCA9' : 'none'} stroke={liked ? '#35FCA9' : '#9ca3af'} strokeWidth="1.8" className="w-7 h-7">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg>
         </button>
-        <button className="flex-1 py-3.5 rounded-2xl border border-gray-300 text-gray-700 font-semibold text-sm">
+        <button className="flex-1 py-3.5 rounded-2xl bg-gray-100 text-gray-600 font-semibold text-sm">
           전화문의
         </button>
-        <button className="flex-[1.5] py-3.5 rounded-2xl bg-primary text-white font-bold text-sm">
+        <button className="flex-[1.5] py-3.5 rounded-2xl font-bold text-sm text-gray-900" style={{ backgroundColor: '#35FCA9' }}>
           지원하기
         </button>
       </div>
@@ -178,60 +159,87 @@ export default function JobDetailPage() {
   )
 }
 
-function RealisticMap({ location }: { location: string }) {
-  return (
-    <div className="w-full h-44 rounded-2xl overflow-hidden relative bg-[#e8f0e4]">
-      {/* Realistic-looking map SVG */}
-      <svg width="100%" height="100%" viewBox="0 0 390 176" preserveAspectRatio="xMidYMid slice">
-        {/* Base */}
-        <rect width="390" height="176" fill="#e8f0e4" />
+/* ── Realistic-style map with scattered pins ── */
+function DetailMap({ applicantCount }: { applicantCount: number }) {
+  const pins = [
+    { x: 52, y: 90, color: '#35FCA9' },
+    { x: 180, y: 60, color: '#FF7043' },
+    { x: 290, y: 110, color: '#35FCA9' },
+    { x: 130, y: 130, color: '#3B82F6' },
+    { x: 230, y: 75, color: '#FF7043' },
+    { x: 320, y: 55, color: '#35FCA9' },
+    { x: 70, y: 150, color: '#3B82F6' },
+  ]
+  const busStops = [
+    { x: 100, y: 85, num: '46' },
+    { x: 260, y: 95, num: '15' },
+  ]
 
-        {/* Large roads */}
-        <path d="M0 88 Q100 80 200 90 T390 85" stroke="#fff" strokeWidth="10" fill="none" />
-        <path d="M0 88 Q100 80 200 90 T390 85" stroke="#f5f5dc" strokeWidth="8" fill="none" />
-        <path d="M180 0 Q190 90 195 176" stroke="#fff" strokeWidth="8" fill="none" />
-        <path d="M180 0 Q190 90 195 176" stroke="#f5f5dc" strokeWidth="6" fill="none" />
+  return (
+    <div className="w-full h-48 rounded-2xl overflow-hidden relative bg-[#e8eedc]">
+      <svg width="100%" height="100%" viewBox="0 0 390 192" preserveAspectRatio="xMidYMid slice">
+        <rect width="390" height="192" fill="#e8eedc" />
+
+        {/* Major roads */}
+        <path d="M0 96 Q80 88 180 95 Q280 102 390 90" stroke="white" strokeWidth="12" fill="none" />
+        <path d="M0 96 Q80 88 180 95 Q280 102 390 90" stroke="#f0ead8" strokeWidth="10" fill="none" />
+        <path d="M185 0 Q190 96 188 192" stroke="white" strokeWidth="10" fill="none" />
+        <path d="M185 0 Q190 96 188 192" stroke="#f0ead8" strokeWidth="8" fill="none" />
 
         {/* Secondary roads */}
-        <path d="M0 50 Q80 45 160 55 T320 48" stroke="#fff" strokeWidth="5" fill="none" opacity="0.8" />
-        <path d="M60 0 Q55 60 65 176" stroke="#fff" strokeWidth="5" fill="none" opacity="0.8" />
-        <path d="M310 0 Q305 80 315 176" stroke="#fff" strokeWidth="4" fill="none" opacity="0.7" />
-        <path d="M0 130 Q150 125 280 135 T390 128" stroke="#fff" strokeWidth="5" fill="none" opacity="0.8" />
+        <path d="M0 48 Q100 43 200 50 Q300 57 390 44" stroke="white" strokeWidth="6" fill="none" opacity="0.9" />
+        <path d="M60 0 Q58 96 62 192" stroke="white" strokeWidth="5" fill="none" opacity="0.8" />
+        <path d="M320 0 Q318 96 322 192" stroke="white" strokeWidth="5" fill="none" opacity="0.8" />
+        <path d="M0 148 Q130 143 260 150 Q330 154 390 144" stroke="white" strokeWidth="5" fill="none" opacity="0.8" />
+        <path d="M120 0 Q118 96 122 192" stroke="white" strokeWidth="4" fill="none" opacity="0.6" />
 
-        {/* Park / green areas */}
-        <ellipse cx="80" cy="130" rx="45" ry="28" fill="#c8ddc8" opacity="0.7" />
-        <ellipse cx="330" cy="55" rx="35" ry="22" fill="#c8ddc8" opacity="0.6" />
+        {/* Green areas */}
+        <ellipse cx="75" cy="155" rx="42" ry="26" fill="#c5d9a8" opacity="0.8" />
+        <ellipse cx="340" cy="48" rx="32" ry="20" fill="#c5d9a8" opacity="0.7" />
+        <ellipse cx="250" cy="165" rx="28" ry="18" fill="#c5d9a8" opacity="0.6" />
 
         {/* Buildings */}
-        <rect x="20" y="20" width="28" height="22" rx="3" fill="#d4dbd4" />
-        <rect x="22" y="22" width="24" height="18" rx="2" fill="#cdd5cd" />
-        <rect x="100" y="60" width="22" height="18" rx="2" fill="#d4dbd4" />
-        <rect x="240" y="100" width="30" height="24" rx="3" fill="#d4dbd4" />
-        <rect x="340" y="140" width="20" height="18" rx="2" fill="#d0d8d0" />
-        <rect x="140" y="15" width="18" height="14" rx="2" fill="#d4dbd4" />
-        <rect x="260" y="30" width="22" height="17" rx="2" fill="#cdd5cd" />
-
-        {/* Small labels */}
-        <text x="75" y="138" fontSize="7" fill="#8a9e8a" fontFamily="sans-serif" textAnchor="middle">공원</text>
-        <text x="325" y="60" fontSize="7" fill="#8a9e8a" fontFamily="sans-serif" textAnchor="middle">녹지</text>
+        <rect x="18" y="18" width="28" height="22" rx="2" fill="#d8dfc8" />
+        <rect x="95" y="108" width="20" height="16" rx="2" fill="#d8dfc8" />
+        <rect x="210" y="28" width="24" height="18" rx="2" fill="#d4dbc6" />
+        <rect x="345" y="118" width="22" height="18" rx="2" fill="#d8dfc8" />
+        <rect x="150" y="162" width="18" height="14" rx="2" fill="#d4dbc6" />
+        <rect x="280" y="20" width="20" height="16" rx="2" fill="#d8dfc8" />
 
         {/* Road labels */}
-        <text x="195" y="83" fontSize="8" fill="#a0a060" fontFamily="sans-serif" textAnchor="middle" transform="rotate(-2 195 83)">다로리로</text>
-        <text x="175" y="40" fontSize="7" fill="#b0b070" fontFamily="sans-serif" textAnchor="middle" transform="rotate(88 175 40)">1번길</text>
+        <text x="188" y="38" fontSize="8" fill="#9aab7a" fontFamily="sans-serif" textAnchor="middle" transform="rotate(90 188 38)">다로리로</text>
+        <text x="195" y="90" fontSize="8" fill="#9aab7a" fontFamily="sans-serif" textAnchor="middle">중앙대로</text>
+
+        {/* Bus stop circles */}
+        {busStops.map((b) => (
+          <g key={b.num}>
+            <circle cx={b.x} cy={b.y} r="10" fill="white" stroke="#ccc" strokeWidth="1" />
+            <text x={b.x} y={b.y + 4} fontSize="8" fill="#555" fontFamily="sans-serif" textAnchor="middle" fontWeight="bold">{b.num}</text>
+          </g>
+        ))}
       </svg>
 
-      {/* Pin */}
+      {/* Applicant pins */}
+      {pins.slice(0, applicantCount + 3).map((p, i) => (
+        <div
+          key={i}
+          className="absolute w-5 h-5 rounded-full border-2 border-white shadow-md flex items-center justify-center"
+          style={{ left: p.x, top: p.y, backgroundColor: p.color, transform: 'translate(-50%,-50%)' }}
+        />
+      ))}
+
+      {/* My location pin */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full flex flex-col items-center">
-        <div className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
-          📍 {location}
+        <div className="w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center" style={{ backgroundColor: '#35FCA9' }}>
+          <div className="w-2.5 h-2.5 bg-white rounded-full" />
         </div>
-        <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[7px] border-l-transparent border-r-transparent border-t-primary" />
+        <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent -mt-0.5" style={{ borderTopColor: '#35FCA9' }} />
       </div>
 
       {/* Zoom controls */}
-      <div className="absolute right-3 bottom-3 flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
-        <button className="w-7 h-7 flex items-center justify-center text-gray-600 text-lg border-b border-gray-100">+</button>
-        <button className="w-7 h-7 flex items-center justify-center text-gray-600 text-lg">−</button>
+      <div className="absolute right-3 bottom-3 flex flex-col bg-white rounded-lg shadow overflow-hidden">
+        <button className="w-7 h-7 flex items-center justify-center text-gray-500 text-base border-b border-gray-100 font-light">+</button>
+        <button className="w-7 h-7 flex items-center justify-center text-gray-500 text-base font-light">−</button>
       </div>
     </div>
   )

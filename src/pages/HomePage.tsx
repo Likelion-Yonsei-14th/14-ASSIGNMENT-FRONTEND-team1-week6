@@ -53,13 +53,17 @@ export default function HomePage() {
       {/* ── Top overlay: StatusBar + search + chips ── */}
       <div className="absolute top-0 left-0 right-0 z-20">
         <StatusBar />
+        {/* Search bar — width:390 height:47 per Figma spec */}
         <div className="px-4 pb-2">
           <button
             onClick={() => navigate('/listing')}
-            className="w-full bg-white rounded-2xl px-4 py-3 flex items-center gap-2 shadow-md"
+            className="w-full h-[47px] bg-white rounded-[14px] px-4 flex items-center gap-2.5 shadow-md"
           >
-            <span className="text-lg">🔍</span>
-            <span className="text-gray-400 text-sm">장소 검색창</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" className="w-[18px] h-[18px] flex-shrink-0">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <span className="text-gray-400 text-[15px]">장소 검색창</span>
           </button>
         </div>
         <div className="px-4 flex gap-2 overflow-x-auto scrollbar-none pb-1">
