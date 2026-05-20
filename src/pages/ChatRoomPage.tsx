@@ -5,6 +5,7 @@ import ChatRoomHeader from "../components/chat/ChatRoomHeader";
 import MessageBubble from "../components/chat/MessageBubble";
 import ChatInputBar from "../components/chat/ChatInputBar";
 import AdminMessageCard from "../components/chat/AdminMessageCard";
+import ChatActionSheet from "../components/chat/ChatActionSheet";
 
 type Message = {
     id: number;
@@ -14,6 +15,8 @@ type Message = {
 };
 
 export default function ChatRoomPage() {
+    const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
+
     const { chatId } = useParams();
 
     const room = chatRooms.find((room) => room.id === Number(chatId));
@@ -50,32 +53,39 @@ export default function ChatRoomPage() {
 
     return (
         <main className="relative mx-auto min-h-screen w-[390px] bg-white">
-            <ChatRoomHeader room={room} />
+            <ChatRoomHeader
+                room={room}
+                onOpenActionSheet={() => setIsActionSheetOpen(true)}
+            />
 
             <section className="flex flex-col gap-[12px] px-[24px] pt-[40px] pb-[90px]">
                 <AdminMessageCard />
 
-{messages.map((message, index) => {
-  const prevMessage = messages[index - 1];
+                {messages.map((message, index) => {
+                    const prevMessage = messages[index - 1];
 
-  const isFirstInGroup =
-    !prevMessage || prevMessage.sender !== message.sender;
+                    const isFirstInGroup =
+                        !prevMessage || prevMessage.sender !== message.sender;
 
-  return (
-    <MessageBubble
-      key={message.id}
-      type={message.sender}
-      message={message.content}
-      profileType={message.profileType}
-      showAvatar={isFirstInGroup}
-    />
-  );
-})}
+                    return (
+                        <MessageBubble
+                            key={message.id}
+                            type={message.sender}
+                            message={message.content}
+                            profileType={message.profileType}
+                            showAvatar={isFirstInGroup}
+                        />
+                    );
+                })}
             </section>
             <ChatInputBar
                 value={inputValue}
                 onChange={setInputValue}
                 onSend={handleSendMessage}
+            />
+            <ChatActionSheet
+                isOpen={isActionSheetOpen}
+                onClose={() => setIsActionSheetOpen(false)}
             />
         </main>
     );

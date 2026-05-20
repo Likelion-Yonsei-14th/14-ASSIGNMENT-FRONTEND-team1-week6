@@ -11,10 +11,12 @@ type ChatRoomHeaderProps = {
     schedule: string;
     members: string;
   };
+  onOpenActionSheet: () => void;
 };
 
 export default function ChatRoomHeader({
     room,
+    onOpenActionSheet,
 }: ChatRoomHeaderProps) {
     const navigate = useNavigate();
   return (
@@ -32,7 +34,9 @@ export default function ChatRoomHeader({
           <img src={PhoneIcon} alt="전화" className="h-[36px] w-[36px]" />
         </button>
 
-        <button className="absolute right-[26px] top-[21px]">
+        <button
+        onClick={onOpenActionSheet} 
+        className="absolute right-[26px] top-[21px]">
           <img src={MoreIcon} alt="상세정보" className="h-[28px] w-[4px]" />
         </button>
 
