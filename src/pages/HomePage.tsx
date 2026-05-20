@@ -85,17 +85,28 @@ export default function HomePage() {
 
       {/* ── Bottom sheet ── */}
       <div
-        className={`absolute left-0 right-0 bg-white rounded-t-3xl z-30 shadow-[0_-4px_24px_rgba(0,0,0,0.12)] transition-all duration-300 ${
+        className={`absolute left-0 right-0 bg-[#f2f2f2] rounded-t-3xl z-30 shadow-[0_-4px_24px_rgba(0,0,0,0.10)] transition-all duration-300 ${
           expanded ? 'top-[140px]' : 'bottom-[60px]'
         }`}
       >
         {/* Handle */}
-        <button className="w-full flex justify-center pt-3 pb-1" onClick={() => setExpanded((v) => !v)}>
-          <div className="w-10 h-1 bg-gray-200 rounded-full" />
+        <button className="w-full flex justify-center pt-3 pb-2" onClick={() => setExpanded((v) => !v)}>
+          <div className="w-9 h-1 bg-gray-300 rounded-full" />
         </button>
 
-        {/* Tabs */}
-        <div className="flex px-4 border-b border-gray-100">
+        {/* "이 지역에서 검색" pill button */}
+        <div className="flex justify-center mb-3">
+          <button className="flex items-center gap-1.5 bg-white px-5 py-2 rounded-full shadow-sm border border-gray-200 text-sm font-medium text-gray-700 active:scale-95 transition-transform">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-primary">
+              <path d="M23 4v6h-6" /><path d="M1 20v-6h6" />
+              <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+            </svg>
+            이 지역에서 검색
+          </button>
+        </div>
+
+        {/* Segment tabs */}
+        <div className="mx-4 mb-3 bg-gray-200 rounded-2xl p-1 flex">
           {([
             { value: 'ride', label: '라이드 쉐어' },
             { value: 'job', label: '일자리' },
@@ -103,8 +114,10 @@ export default function HomePage() {
             <button
               key={t.value}
               onClick={() => setTab(t.value)}
-              className={`flex-1 py-3 text-sm font-semibold border-b-2 transition-colors ${
-                tab === t.value ? 'border-primary text-primary' : 'border-transparent text-gray-400'
+              className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                tab === t.value
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500'
               }`}
             >
               {t.label}
@@ -113,29 +126,42 @@ export default function HomePage() {
         </div>
 
         {/* List header */}
-        <div className="px-4 py-3 flex items-center justify-between">
+        <div className="px-4 pb-2 text-center">
           <p className="text-sm font-bold text-gray-900">
             지금 핫한 모집글 <span className="text-primary">TOP20</span>
           </p>
-          <button onClick={() => navigate('/listing')} className="text-xs text-gray-400">
-            전체보기 →
-          </button>
         </div>
 
-        {/* Scrollable list */}
+        {/* Scrollable banner cards */}
         <div
-          className="overflow-y-auto"
-          style={{ maxHeight: expanded ? 'calc(844px - 280px)' : 220 }}
+          className="overflow-y-auto px-4 pb-4 space-y-2"
+          style={{ maxHeight: expanded ? 'calc(844px - 300px)' : 200 }}
         >
           {tab === 'ride'
             ? rides.length > 0
               ? rides.slice(0, expanded ? 20 : 5).map((p, i) => (
-                  <RideRow key={p.id} rank={i + 1} post={p} onClick={() => navigate(`/rides/${p.id}`)} />
+                  <BannerCard
+                    key={p.id}
+                    rank={i + 1}
+                    title={p.title}
+                    sub={`${p.from} → ${p.to}`}
+                    thumbColor={p.thumbColor}
+                    thumbEmoji={p.thumbEmoji}
+                    onClick={() => navigate(`/rides/${p.id}`)}
+                  />
                 ))
               : <Empty />
             : jobs.length > 0
               ? jobs.slice(0, expanded ? 20 : 5).map((p, i) => (
-                  <JobRow key={p.id} rank={i + 1} post={p} onClick={() => navigate(`/jobs/${p.id}`)} />
+                  <BannerCard
+                    key={p.id}
+                    rank={i + 1}
+                    title={p.title}
+                    sub={p.location}
+                    thumbColor={p.thumbColor}
+                    thumbEmoji={p.thumbEmoji}
+                    onClick={() => navigate(`/jobs/${p.id}`)}
+                  />
                 ))
               : <Empty />
           }
@@ -148,43 +174,41 @@ export default function HomePage() {
   )
 }
 
-function RideRow({ rank, post, onClick }: { rank: number; post: (typeof ridePosts)[0]; onClick: () => void }) {
+function BannerCard({
+  rank, title, sub, thumbColor, thumbEmoji, onClick,
+}: {
+  rank: number
+  title: string
+  sub: string
+  thumbColor: string
+  thumbEmoji: string
+  onClick: () => void
+}) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3 active:bg-gray-50 transition-colors">
-      <span className={`w-5 text-sm font-bold flex-shrink-0 text-left ${rank <= 3 ? 'text-primary' : 'text-gray-300'}`}>{rank}</span>
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style={{ backgroundColor: post.thumbColor }}>
-        {post.thumbEmoji}
+    <button
+      onClick={onClick}
+      className="w-full h-[88px] rounded-2xl overflow-hidden flex active:scale-[0.98] transition-transform shadow-sm"
+    >
+      {/* Left: colored thumbnail ~40% */}
+      <div
+        className="w-[42%] flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: thumbColor }}
+      >
+        <span className="text-5xl">{thumbEmoji}</span>
       </div>
-      <div className="flex-1 min-w-0 text-left">
-        <p className="text-sm font-semibold text-gray-900 truncate">{post.title}</p>
-        <p className="text-xs text-gray-400 truncate">{post.from} → {post.to}</p>
-        <p className="text-xs text-gray-400">{post.date} · {post.time}</p>
-      </div>
-      <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
-        <span className={`text-xs font-semibold ${post.seatsLeft === 0 ? 'text-red-400' : 'text-primary'}`}>
-          {post.seatsLeft === 0 ? '마감' : `${post.seatsLeft}석 남음`}
-        </span>
-        <span className="text-xs text-gray-400">{post.createdAt}</span>
-      </div>
-    </button>
-  )
-}
 
-function JobRow({ rank, post, onClick }: { rank: number; post: (typeof jobPosts)[0]; onClick: () => void }) {
-  return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3 active:bg-gray-50 transition-colors">
-      <span className={`w-5 text-sm font-bold flex-shrink-0 text-left ${rank <= 3 ? 'text-primary' : 'text-gray-300'}`}>{rank}</span>
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style={{ backgroundColor: post.thumbColor }}>
-        {post.thumbEmoji}
-      </div>
-      <div className="flex-1 min-w-0 text-left">
-        <p className="text-sm font-semibold text-gray-900 truncate">{post.title}</p>
-        <p className="text-xs text-gray-400 truncate">{post.location}</p>
-        <p className="text-xs text-gray-400">{post.date} · {post.time}</p>
-      </div>
-      <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
-        <span className="text-xs font-bold text-primary">{post.pay.toLocaleString()}원</span>
-        <span className="text-xs text-gray-400">/{post.payUnit}</span>
+      {/* Right: dark overlay with rank + title */}
+      <div className="flex-1 bg-gray-800 flex flex-col justify-center px-3 relative overflow-hidden">
+        {/* Subtle texture lines */}
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="w-full h-px bg-white" style={{ marginTop: i * 14 }} />
+          ))}
+        </div>
+        <p className="text-white text-[13px] font-bold leading-snug relative z-10 text-left">
+          {rank}. {title}
+        </p>
+        <p className="text-gray-400 text-[11px] mt-0.5 truncate relative z-10 text-left">{sub}</p>
       </div>
     </button>
   )
