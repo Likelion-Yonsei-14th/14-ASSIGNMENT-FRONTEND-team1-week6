@@ -1,7 +1,7 @@
 import type { RidePost, JobPost, Author } from '../types'
 
 const authors: Author[] = [
-  { id: 'u1', name: '김영농', avatar: '🧑‍🌾', rating: 4.8, reviewCount: 23, neighborhood: '다로리 1구역' },
+  { id: 'u1', name: '김영농', avatar: '🧑‍🌾', rating: 4.8, reviewCount: 4, neighborhood: '다로리 1구역' },
   { id: 'u2', name: '박순자', avatar: '👩‍🦳', rating: 4.9, reviewCount: 47, neighborhood: '다로리 2구역' },
   { id: 'u3', name: '이철수', avatar: '👨‍🦱', rating: 4.6, reviewCount: 12, neighborhood: '다로리 3구역' },
   { id: 'u4', name: '최미영', avatar: '👩‍🦰', rating: 5.0, reviewCount: 8, neighborhood: '다로리 1구역' },

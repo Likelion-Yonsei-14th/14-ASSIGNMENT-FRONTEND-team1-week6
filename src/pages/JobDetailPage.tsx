@@ -45,7 +45,7 @@ export default function JobDetailPage() {
       <div className="flex-1 overflow-y-auto pb-[84px]">
 
         {/* ── Hero header (includes StatusBar area) ── */}
-        <div className="relative w-full" style={{ height: 44 + 158 }}>
+        <div className="relative w-full" style={{ height: 44 + 111 }}>
           <img
             src="/job-detail-hero.png"
             alt=""

@@ -4,7 +4,6 @@ import StatusBar from '../components/common/StatusBar'
 import BottomNav from '../components/BottomNav'
 import { ridePosts, jobPosts } from '../data/mockData'
 import type { RidePost, JobPost } from '../types'
-import mapImage from '../assets/map-sinchon.png'
 import firstCardImage from '../assets/home-card-first.png'
 
 type Tab = 'ride' | 'job'
@@ -21,9 +20,12 @@ export default function HomePage() {
 
   return (
     <div className="relative h-full overflow-hidden bg-[#e8e0cf]">
-      {/* Map image fills the screen */}
-      <div className="absolute left-0 right-0" style={{ top: 0, height: 490 }}>
-        <img src={mapImage} alt="신촌 지도" className="w-full h-full object-cover" />
+      {/* Map placeholder */}
+      <div
+        className="absolute left-0 right-0 flex items-center justify-center"
+        style={{ top: 0, bottom: 368, backgroundColor: '#D9D9D9', paddingTop: 140 }}
+      >
+        <span style={{ fontSize: 20, color: '#888' }}>지도</span>
       </div>
 
       {/* Top overlay: StatusBar + Search */}
